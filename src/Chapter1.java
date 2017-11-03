@@ -26,6 +26,23 @@ public class Chapter1 {
         }
         return true;
     }
+    static void insert20InPlace(Character[] c) {
+        boolean foundChar = false;
+        int shiftIndex = -1;
+        for (int i=c.length-1;i>=0;--i) {
+            if (!foundChar && c[i] != ' ') {
+                shiftIndex = i;
+                foundChar = true;
+            }
+            else if (foundChar && c[i] == ' ') {
+                shiftIndex += 2;
+                for (int j=shiftIndex;j>i+2;--j) {
+                    c[j] = c[j-2];
+                }
+                c[i] = '2'; c[i+1] = '0'; c[i+2] = '%';
+            }
+        }
+    }
 
     public static void main(String [] args) {
         //isUnique
@@ -44,6 +61,7 @@ public class Chapter1 {
                     + " Result: " + isUnique(strings[i]));
         }
 
+        //Is permutation
         System.out.println("isPermutation()");
         String[] stringX = {"abcxd",
                 "abcxa",
@@ -64,6 +82,26 @@ public class Chapter1 {
 
             System.out.println("Trying: " + stringX[i] + ", " + stringY[i]
                     + " Result: " + isPermutation(stringX[i], stringY[i]));
+        }
+
+        //Insert 20%
+        System.out.println("insert20%InPlace()");
+        String[] insertStrings = {
+                "Hello How are yu      ",
+                " But   what about the cars              ",
+                "",
+                "abacxd"};
+        for (int i=0;i<insertStrings.length;++i) {
+            Character[] array =
+                    insertStrings[i].chars().mapToObj(c -> (char)c).toArray(Character[]::new);
+            System.out.println("Trying: " + insertStrings[i] + ".");
+            insert20InPlace(array);
+            String s = "";
+            StringBuilder sb = new StringBuilder(array.length);
+            for (int j=0;j<array.length;++j) {
+                sb.append(array[j]);
+            }
+            System.out.println("Result:" + sb.toString() +".");
         }
     }
 }

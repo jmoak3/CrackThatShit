@@ -44,6 +44,68 @@ public class Chapter1 {
         }
     }
 
+    static int getCurrentCount(char c, HashMap<Character, Integer> h) {
+        if (h.get(c) == null) {
+            return 0;
+        }
+        else {
+            return h.get(c);
+        }
+    }
+
+
+    static boolean permutesToPalindrome(String s) {
+        HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+        for (Character c : s.toCharArray()) {
+            int count = getCurrentCount(c, hash);
+            hash.put(c, count+1);
+        }
+        int isOdd = s.length() % 2;
+        for (int v : hash.values()) {
+            if (isOdd > 0 && v % 2 == 1) isOdd--;
+            else if (v%2 == 1) return false;
+        }
+        return true;
+    }
+
+    static boolean isOneAway(String a, String b) {
+        int x=0; int y=0;
+        if (Math.abs(a.length() - b.length()) > 1) return false;
+        int diffs = 0;
+        while (x < a.length() && y< b.length()) {
+            if (a.charAt(x) != b.charAt(y)) {
+                if (++diffs > 1) return false;
+                if (a.length() > b.length()) x++;
+                else if (a.length() < b.length()) y++;
+                else {x++; y++;}
+            }
+            else {x++; y++;}
+        }
+        return true;
+    }
+
+    static String compress(String s) {
+        int x=0; int y=0;
+        char curr = ' ';
+        int count = 0;
+        String compressed = "";
+        while (y < s.length()) {
+            if (curr != s.charAt(y)) {
+                if (count != 0) compressed += ""+count;
+                curr = s.charAt(y);
+                count = 1;
+                compressed += curr;
+            }
+            else {
+                ++count;
+            }
+            ++y;
+        }
+        compressed += ""+count;
+        if (compressed.length() < s.length()) return compressed;
+        else return s;
+    }
+
     public static void main(String [] args) {
         //isUnique
         System.out.println("isUnique()");
@@ -78,7 +140,7 @@ public class Chapter1 {
                 "/;;'/",
                 "/][-_]]]"};
 
-        for (int i=0;i<strings.length;++i) {
+        for (int i=0;i<stringX.length;++i) {
 
             System.out.println("Trying: " + stringX[i] + ", " + stringY[i]
                     + " Result: " + isPermutation(stringX[i], stringY[i]));
@@ -102,6 +164,66 @@ public class Chapter1 {
                 sb.append(array[j]);
             }
             System.out.println("Result:" + sb.toString() +".");
+        }
+
+        //isPalindrome
+        System.out.println("isPalindrome()");
+        String[] palindromes = {"racecar",
+                "rceer",
+                "reeeeer",
+                "rcercaa",
+                "adsaddddasfa",
+                "aa",
+                "/\\;;/"};
+
+        for (int i=0;i<palindromes.length;++i) {
+            System.out.println("Trying: " + palindromes[i]
+                    + " Result: " + permutesToPalindrome(palindromes[i]));
+        }
+
+        //isOneAway
+        System.out.println("isOneAway()");
+        String[] stringA =
+               {"kape",
+                "kale",
+                "mans",
+                "malse",
+                "malse",
+                "aaaa",
+                "bbb"};
+
+        String[] stringB =
+               {"kaspe",
+                "pale",
+                "mazn",
+                "male",
+                "males",
+                "aaa",
+                "a"};
+
+        for (int i=0;i<stringA.length;++i) {
+            System.out.println("Trying: " + stringA[i] + ", " + stringB[i]
+                + " Result: " + isOneAway(stringA[i], stringB[i]));
+        }
+
+
+        //compress
+        System.out.println("compress()");
+        String[] compressed =
+               {"racecar",
+                "rceer",
+                "reeeeer",
+                "rcercaa",
+                "adsaddddasfa",
+                "aa",
+                "aaaaaabbeedcsee",
+                "dsafawwwwweeesz",
+                "eeeexxz",
+                "/\\;;/"};
+
+        for (int i=0;i<compressed.length;++i) {
+            System.out.println("Trying: " + compressed[i]
+                    + " Result: " + compress(compressed[i]));
         }
     }
 }

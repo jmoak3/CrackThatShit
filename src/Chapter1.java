@@ -106,6 +106,50 @@ public class Chapter1 {
         else return s;
     }
 
+    static void swap(int i1, int j1, int i2, int j2, int[][] m) {
+        int temp = m[i1][j1];
+        m[i1][j1] = m[i2][j2];
+        m[i2][j2] = temp;
+    }
+    static void rotateInPlace(int[][] m) {
+        int N = m.length;
+        for (int j=0;j<N/2;++j) {
+            for (int i=j;i<N-1-j;++i) {
+                swap(j, i+j,
+                     i+j, N-1-j, m);
+                swap(j, i+j,
+                     N-1-i-j, j, m);
+                swap(N-1-j-i, j,
+                     N-1-j, N-1-i-j, m);
+            }
+        }
+    }
+
+    static void zeroOut(int[][] m) {
+        int M = m.length;
+        int N = m[0].length;
+        int x = -1;
+        int y = -1;
+        for (int i=0;i<M;++i) {
+            for (int j=0;j<N;++j) {
+                if (m[i][j] == 0) {
+                    x = i;
+                    y = j;
+                    i = M;
+                    j = N;
+                }
+            }
+        }
+        if (x == -1 && y == -1) return;
+        for (int i=0;i<M;++i) {
+            m[i][y] = 0;
+        }
+        for (int i=0;i<N;++i) {
+            m[x][i] = 0;
+        }
+    }
+
+
     public static void main(String [] args) {
         //isUnique
         System.out.println("isUnique()");
@@ -118,7 +162,6 @@ public class Chapter1 {
                 "/][-_"};
 
         for (int i=0;i<strings.length;++i) {
-
             System.out.println("Trying: " + strings[i]
                     + " Result: " + isUnique(strings[i]));
         }
@@ -224,6 +267,59 @@ public class Chapter1 {
         for (int i=0;i<compressed.length;++i) {
             System.out.println("Trying: " + compressed[i]
                     + " Result: " + compress(compressed[i]));
+        }
+
+
+        int curr = 1;
+        int[][] m = new int[4][4];
+        for (int i=0;i<4;++i) {
+            for (int j=0;j<4;++j) {
+                m[i][j] = curr;
+                ++curr;
+            }
+        }
+        System.out.println("rotateInPlace()");
+        for (int i=0;i<4;++i) {
+            String line = "";
+            for (int j=0;j<4;++j) {
+                line += m[i][j] + " ";
+            }
+            System.out.println(line);
+        }
+        rotateInPlace(m);
+        for (int i=0;i<4;++i) {
+            String line = "";
+            for (int j=0;j<4;++j) {
+                line += m[i][j] + " ";
+            }
+            System.out.println(line);
+        }
+
+
+        curr = 1;
+        m = new int[4][8];
+        for (int i=0;i<4;++i) {
+            for (int j=0;j<8;++j) {
+                if (i == 2 && j == 3) m[i][j] = 0;
+                else m[i][j] = curr;
+                ++curr;
+            }
+        }
+        System.out.println("zeroOut()");
+        for (int i=0;i<4;++i) {
+            String line = "";
+            for (int j=0;j<8;++j) {
+                line += m[i][j] + " ";
+            }
+            System.out.println(line);
+        }
+        zeroOut(m);
+        for (int i=0;i<4;++i) {
+            String line = "";
+            for (int j=0;j<8;++j) {
+                line += m[i][j] + " ";
+            }
+            System.out.println(line);
         }
     }
 }

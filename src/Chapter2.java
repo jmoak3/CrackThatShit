@@ -101,7 +101,6 @@ public class Chapter2 {
         }
     }
 
-
     static void runRemoveMiddle() {
         System.out.println("removeMiddle()");
         Node n = new Node(2);
@@ -131,9 +130,60 @@ public class Chapter2 {
         System.out.println(line);
     }
 
+    static Node reverse(Node head) {
+        Node r = new Node(-1);
+        Node n = null;
+        Node rn = r;
+        if (head.next == null) return head;
+        while (head.next != null) {
+            n = head;
+            Node last = n;
+            while (n.next != null) {
+                last = n;
+                n = n.next;
+            }
+            while (rn.next != null) {
+                rn = rn.next;
+            }
+            rn.next = n;
+            last.next = null;
+        }
+        rn.next.next = head;
+        r = r.next;
+        return r;
+    }
+
+    static void runReverse() {
+        System.out.println("reverse()");
+        Node n = new Node(2);
+        Node i = n;
+        i.next = new Node(1); i = i.next;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(7); i = i.next;
+        i.next = new Node(4); i = i.next;
+        i.next = new Node(1); i = i.next;
+
+        i = n; String line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+
+        n = reverse(n);
+
+        i = n; line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+    }
+
     public static void run() {
         runRemoveDuplicates();
         runFindKLast();
         runRemoveMiddle();
+        runReverse();
     }
 }

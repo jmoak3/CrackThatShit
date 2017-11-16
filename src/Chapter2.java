@@ -255,11 +255,78 @@ public class Chapter2 {
         System.out.println(line);
     }
 
+    static Node sum(Node x, Node y) {
+        Node a = x;
+        int mult = 1;
+        int sumx = 0;
+        while (a != null) {
+            sumx += a.data*mult;
+            mult *= 10;
+            a = a.next;
+        }
+        Node b = y;
+        mult = 1;
+        int sumy = 0;
+        while (b!=null) {
+            sumy += b.data*mult;
+            mult*=10;
+            b = b.next;
+        }
+        int s = sumy + sumx;
+        if (s == 0) return new Node(0);
+        Node n = new Node(-1);
+        Node i = n;
+        while (s > 0) {
+            i.next = new Node(s%10);
+            i = i.next;
+            s = s / 10;
+        }
+        n = n.next;
+        return n;
+    }
+
+    static void runSum() {
+        System.out.println("sum()");
+        Node x = new Node(1);
+        Node i = x;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(3); i = i.next;
+        Node y = new Node(4);
+        i = y;
+        i.next = new Node(5); i = i.next;
+        i.next = new Node(6); i = i.next;
+
+
+        i = x; String line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+        i = y; line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+
+        System.out.println("summing those");
+        Node r = sum(x, y);
+
+        i = r; line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+    }
+
     public static void run() {
         runRemoveDuplicates();
         runFindKLast();
         runRemoveMiddle();
         runReverse();
         runPartition();
+        runSum();
     }
 }

@@ -180,10 +180,86 @@ public class Chapter2 {
         System.out.println(line);
     }
 
+    static Node partition(Node head, int x) {
+        Node lessHead = new Node(-1);
+        Node less = lessHead;
+        Node sameHead = new Node(-1);
+        Node same = sameHead;
+        Node greatHead = new Node(-1);
+        Node great = greatHead;
+        Node i = head;
+
+        if (i.next == null) return head;
+        while (i.next == null) return head;
+        while (i != null) {
+            if (i.data < x) {
+                less.next = i;
+                less = less.next;
+            }
+            else if (i.data == x) {
+                same.next = i;
+                same = same.next;
+            }
+            else if (i.data > x) {
+                great.next = i;
+                great = great.next;
+            }
+            i = i.next;
+        }
+
+        Node newHead = null;
+        if (lessHead.next != null)
+            newHead = lessHead.next;
+        else if (sameHead.next != null)
+            newHead = sameHead.next;
+        else
+            newHead = greatHead.next;
+
+        if (lessHead.next != null && sameHead.next != null) {
+            less.next = sameHead.next;
+            same.next = null;
+        }
+        if (sameHead.next != null && greatHead.next != null) {
+            same.next = greatHead.next;
+            great.next = null;
+        }
+
+        return newHead;
+    }
+
+    static void runPartition() {
+        System.out.println("reverse()");
+        Node n = new Node(2);
+        Node i = n;
+        i.next = new Node(1); i = i.next;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(7); i = i.next;
+        i.next = new Node(4); i = i.next;
+        i.next = new Node(1); i = i.next;
+
+        i = n; String line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+
+        System.out.println("Partitioning to 2");
+        n = partition(n, 2);
+
+        i = n; line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+    }
+
     public static void run() {
         runRemoveDuplicates();
         runFindKLast();
         runRemoveMiddle();
         runReverse();
+        runPartition();
     }
 }

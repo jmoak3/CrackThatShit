@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Chapter2 {
@@ -342,7 +343,7 @@ public class Chapter2 {
     }
 
     static void runPalindrome() {
-        System.out.println("sum()");
+        System.out.println("paloindrome()");
         Node x = new Node(1);
         Node i = x;
         i.next = new Node(2); i = i.next;
@@ -390,17 +391,23 @@ public class Chapter2 {
         System.out.println("is Palindrome: " + isListPalindrome(z));
     }
 
-    int increment(Node n, HashMap<Integer><Integer> map) {
-        int count = 1 : 0 ? h.get(c) n.data = null;
-        return map.put(n.data, count+1);
+    static int increment(Node n, HashMap<Node, Integer> map) {
+        int count = 0;
+        if (map.get(n) == null) count = 0;
+        else              count = 1;
+        map.put(n, count+1);
+        return map.get(n);
     }
-    int decrement(Node n, HashMap<Integer><Integer> map) {
-        int count = 1 : 0 ? h.get(c) n.data = null;
-        return map.put(n.data, count-1);
+    static int decrement(Node n, HashMap<Node, Integer> map) {
+        int count = 0;
+        if (map.get(n) == null) count = 0;
+        else              count = 1;
+        map.put(n, count-1);
+        return map.get(n);
     }
 
     static Node intersection(Node x, Node y) {
-        HashMap<Integer,Integer>map = new HashMap<Integer,Integer>();
+        HashMap<Node,Integer>map = new HashMap<Node,Integer>();
         Node n = x;
         while (n!= null) {
             int val = increment(n,map);
@@ -413,38 +420,42 @@ public class Chapter2 {
             if (val>1) return n;
             n = n.next;
         }
+
         return null;
     }
 
-    static void runPalindrome() {
-        System.out.println("sum()");
+    static void runIntersect() {
+        System.out.println("intersct()");
         Node x = new Node(1);
         Node j = x;
         j.next = new Node(2);
         j = j.next;
         j.next = new Node(3);
+        j = j.next;
 
 
-        Node y = new Node(1);
+        Node y = new Node(3);
         Node i = y;
-        i.next = new Node(2);
+        i.next = new Node(4);
         i = i.next;
-        i.next = new Node(3);
+        i.next = new Node(5);
         i = i.next;
-        i = j;
+        i.next = j;
+        System.out.println("intersect is at " + j.data);
         i = i.next;
-        i.next = new Node(2);
+        i.next = new Node(7);
         i = i.next;
-        i.next = new Node(1);
+        i.next = new Node(8);
         i = i.next;
 
-        Node z = new Node(1);
         i = x;
         String line = "";
         while (i != null) {
             line += i.data + " ";
             i = i.next;
         }
+
+        System.out.println(line);
 
         i = y;
         line = "";
@@ -453,7 +464,7 @@ public class Chapter2 {
             i = i.next;
         }
         System.out.println(line);
-        System.out.println("is Palindrome: " + intersection(x, y).data);
+        System.out.println("is Intesection: " + intersection(x, y).data);
     }
 
     public static void run() {
@@ -464,5 +475,6 @@ public class Chapter2 {
         runPartition();
         runSum();
         runPalindrome();
+        runIntersect();
     }
 }

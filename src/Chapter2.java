@@ -390,6 +390,72 @@ public class Chapter2 {
         System.out.println("is Palindrome: " + isListPalindrome(z));
     }
 
+    int increment(Node n, HashMap<Integer><Integer> map) {
+        int count = 1 : 0 ? h.get(c) n.data = null;
+        return map.put(n.data, count+1);
+    }
+    int decrement(Node n, HashMap<Integer><Integer> map) {
+        int count = 1 : 0 ? h.get(c) n.data = null;
+        return map.put(n.data, count-1);
+    }
+
+    static Node intersection(Node x, Node y) {
+        HashMap<Integer,Integer>map = new HashMap<Integer,Integer>();
+        Node n = x;
+        while (n!= null) {
+            int val = increment(n,map);
+            if (val>1) decrement(n,map);
+            n = n.next;
+        }
+        n=y;
+        while (n!= null) {
+            int val = increment(n,map);
+            if (val>1) return n;
+            n = n.next;
+        }
+        return null;
+    }
+
+    static void runPalindrome() {
+        System.out.println("sum()");
+        Node x = new Node(1);
+        Node j = x;
+        j.next = new Node(2);
+        j = j.next;
+        j.next = new Node(3);
+
+
+        Node y = new Node(1);
+        Node i = y;
+        i.next = new Node(2);
+        i = i.next;
+        i.next = new Node(3);
+        i = i.next;
+        i = j;
+        i = i.next;
+        i.next = new Node(2);
+        i = i.next;
+        i.next = new Node(1);
+        i = i.next;
+
+        Node z = new Node(1);
+        i = x;
+        String line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+
+        i = y;
+        line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+        System.out.println("is Palindrome: " + intersection(x, y).data);
+    }
+
     public static void run() {
         runRemoveDuplicates();
         runFindKLast();

@@ -321,6 +321,75 @@ public class Chapter2 {
         System.out.println(line);
     }
 
+    static boolean isListPalindrome(Node h) {
+        Node n = h;
+        String s = "";
+        while (n!=null) {
+            s+= String.valueOf(n.data);
+            n=n.next;
+        }
+        return isStringPalindrome(s);
+    }
+
+    static boolean isStringPalindrome(String s) {
+        int x=0;int y=s.length()-1;
+        while (x<y) {
+            if (s.charAt(x) != s.charAt(y))
+                return false;
+            ++x; --y;
+        }
+        return true;
+    }
+
+    static void runPalindrome() {
+        System.out.println("sum()");
+        Node x = new Node(1);
+        Node i = x;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(3); i = i.next;
+        i.next = new Node(3); i = i.next;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(1); i = i.next;
+
+        Node y = new Node(1);
+        i = y;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(3); i = i.next;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(1); i = i.next;
+
+        Node z = new Node(1);
+        i = z;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(3); i = i.next;
+        i.next = new Node(2); i = i.next;
+        i.next = new Node(2); i = i.next;
+
+        i = x; String line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+        System.out.println("is Palindrome: " + isListPalindrome(x));
+
+        i = y; line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+        System.out.println("is Palindrome: " + isListPalindrome(y));
+
+        i = z; line = "";
+        while (i != null) {
+            line += i.data + " ";
+            i = i.next;
+        }
+        System.out.println(line);
+        System.out.println("is Palindrome: " + isListPalindrome(z));
+    }
+
     public static void run() {
         runRemoveDuplicates();
         runFindKLast();
@@ -328,5 +397,6 @@ public class Chapter2 {
         runReverse();
         runPartition();
         runSum();
+        runPalindrome();
     }
 }

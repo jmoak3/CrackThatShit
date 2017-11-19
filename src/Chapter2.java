@@ -467,6 +467,61 @@ public class Chapter2 {
         System.out.println("is Intesection: " + intersection(x, y).data);
     }
 
+    static Node findLoop(Node h) {
+        HashSet<Node> set = new HashSet<Node>();
+        Node n = h;
+        while (n!= null) {
+            if (!set.add(n)) return n;
+            n = n.next;
+        }
+        return null;
+    }
+
+    static void runFindLoop() {
+        System.out.println("find loop()");
+        Node x = new Node(1);
+        Node j = x;
+        j.next = new Node(2);
+        j = j.next;
+        j.next = new Node(3);
+        j = j.next;
+        Node i = j;
+        i.next = new Node(4);
+        i = i.next;
+        i.next = new Node(5);
+        i = i.next;
+        i.next = j;
+
+
+
+
+        i = x;
+        String line = "";
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+        line += i.data + " ";
+        i = i.next;
+
+        System.out.println(line);
+        System.out.println("has loop: " + findLoop(x).data);
+    }
+
     public static void run() {
         runRemoveDuplicates();
         runFindKLast();
@@ -476,5 +531,6 @@ public class Chapter2 {
         runSum();
         runPalindrome();
         runIntersect();
+        runFindLoop();
     }
 }

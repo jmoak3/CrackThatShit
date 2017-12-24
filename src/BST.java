@@ -81,6 +81,9 @@ public class BST {
     }
 
     static public void test() {
+        System.out.println();
+        System.out.println("BST Test");
+
         BST b = new BST();
         b.add(3);
         b.add(1);
@@ -104,5 +107,7 @@ public class BST {
             s += "" + l.get(i) + " ";
         }
         System.out.println("PreOrder: " + s);
+        System.out.println();
+
     }
 }

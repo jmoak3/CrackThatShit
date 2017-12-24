@@ -212,6 +212,8 @@ public class Chapter4 {
 
 
     public static void run() {
+        System.out.println();
+        System.out.println();
         runPathExists();
         runMakeShortTree();
         runListAtDepth();

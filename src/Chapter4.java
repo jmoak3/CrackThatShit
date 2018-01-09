@@ -1,9 +1,13 @@
 import com.sun.jmx.mbeanserver.NamedObject;
 import org.omg.CORBA.INTERNAL;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import static java.lang.StrictMath.abs;
+import static java.lang.StrictMath.max;
 
 public class Chapter4 {
 
@@ -210,6 +214,111 @@ public class Chapter4 {
         System.out.println();
     }
 
+    static int calcHeight(BSTNode n) {
+        if (n == null) return 0;
+        n.height = max(calcHeight(n.left), calcHeight(n.right)) + 1;
+        return n.height;
+    }
+
+    static boolean isBalanced(BSTNode n) {
+        if (n == null) return true;
+        int right = 0;
+        int left = 0;
+        if (n.right != null) {
+            if (n.right.height == -1) right = calcHeight(n.right);
+            else right = n.right.height;
+        }
+        if (n.left != null) {
+            if (n.left.height == -1) right = calcHeight(n.left);
+            else left = n.left.height;
+        }
+        return abs(left - right) <= 1
+            && isBalanced(n.left) && isBalanced(n.right);
+    }
+
+    static void runIsBalanced() {
+        System.out.println("IsBalanced()");
+        int[] x = {7,2,8,1,3,4};
+        BST b = new BST();
+        for (int i = 0; i < x.length; ++i) {
+            b.add(x[i]);
+        }
+
+        String s = "";
+        LinkedList<Integer> l = new LinkedList<Integer>();
+        b.inorder(b.root, l);
+        for (int i = 0; i < l.size(); ++i) {
+            s += "" + l.get(i) + " ";
+        }
+        System.out.println("InOrder: " + s);
+        s = "";
+        l = new LinkedList<Integer>();
+        b.preorder(b.root, l);
+        for (int i = 0; i < l.size(); ++i) {
+            s += "" + l.get(i) + " ";
+        }
+        System.out.println("PreOrder: " + s);
+
+        System.out.println("IsBalanced - false: " + isBalanced(b.root));
+
+        System.out.println();
+    }
+
+    static boolean isValid(BSTNode n) {
+        if (n == null) return true;
+        else
+            return
+                 (n.left == null || n.left.data < n.data)
+              && (n.right == null || n.right.data > n.data)
+              && isValid(n.left)
+              && isValid(n.right);
+    }
+
+    static void runIsValid() {
+        System.out.println("IsValid()");
+        int[] x = {7,2,8,1,3,4};
+        BST b = new BST();
+        for (int i = 0; i < x.length; ++i) {
+            b.add(x[i]);
+        }
+
+        String s = "";
+        LinkedList<Integer> l = new LinkedList<Integer>();
+        b.inorder(b.root, l);
+        for (int i = 0; i < l.size(); ++i) {
+            s += "" + l.get(i) + " ";
+        }
+        System.out.println("InOrder: " + s);
+        s = "";
+        l = new LinkedList<Integer>();
+        b.preorder(b.root, l);
+        for (int i = 0; i < l.size(); ++i) {
+            s += "" + l.get(i) + " ";
+        }
+        System.out.println("PreOrder: " + s);
+        System.out.println("IsValid - true: " + isValid(b.root));
+
+        b.root.left.right.right.data = 9;
+
+        l = new LinkedList<Integer>();
+        s = "";
+        b.inorder(b.root, l);
+        for (int i = 0; i < l.size(); ++i) {
+            s += "" + l.get(i) + " ";
+        }
+        System.out.println("InOrder: " + s);
+        s = "";
+        l = new LinkedList<Integer>();
+        b.preorder(b.root, l);
+        for (int i = 0; i < l.size(); ++i) {
+            s += "" + l.get(i) + " ";
+        }
+        System.out.println("PreOrder: " + s);
+        System.out.println("IsValid - false: " + isValid(b.root));
+
+        System.out.println();
+    }
+
 
     public static void run() {
         System.out.println();
@@ -217,5 +326,7 @@ public class Chapter4 {
         runPathExists();
         runMakeShortTree();
         runListAtDepth();
+        runIsBalanced();
+        runIsValid();
     }
 }

@@ -371,6 +371,59 @@ public class Chapter4 {
         System.out.println();
     }
 
+    public static int countPaths(BNode b, int target) {
+        if (b==null) return 0;
+        return countPathsHelper(b, target, 0, 0);
+    }
+
+    public static int countPathsHelper(BNode b, int t, int s, int l) {
+        if (b == null) return 0;
+        int match = ((b.v + s) == t) && (l > 0) ? 1 : 0;
+        System.out.println("Found match at " + b.v + " where sum is " + s);
+        return    match
+                + countPathsHelper(b.left, t,s+b.v,l+1)
+                + countPathsHelper(b.right,t,s+b.v,l+1)
+                + countPathsHelper(b.left, t,0,0)
+                + countPathsHelper(b.right,t,0,0);
+    }
+
+    static void runCountPaths() {
+        System.out.println("CountPaths()");
+        BNode b = new BNode(1);
+        BNode root = b;
+        b.left = new BNode(-1);
+        b.right = new BNode(3);
+
+        //left side
+        BNode z = b.left;
+        z.left = new BNode(2);
+        z.right = new BNode(-1);
+
+        BNode x = z.left;
+        x.left = new BNode(1);
+        x.right = new BNode(8);
+
+        BNode c = z.right;
+        c.left = new BNode(11);
+        c.right = new BNode(4);
+
+        BNode g = c.left;
+        g.right = new BNode(-20);
+
+        //right side
+        BNode n = b.right;
+        n.left = new BNode(4);
+        n.right = new BNode(0);
+
+        BNode m = n.left;
+        m.right = new BNode(9);
+
+
+        System.out.println("Num Paths: 4: " + countPaths(root, 10));
+
+        System.out.println();
+    }
+
     public static void run() {
         System.out.println();
         System.out.println();
@@ -380,5 +433,6 @@ public class Chapter4 {
         runIsBalanced();
         runIsValid();
         runIsSubtree();
+        runCountPaths();
     }
 }

@@ -319,6 +319,57 @@ public class Chapter4 {
         System.out.println();
     }
 
+    public static class BNode {
+        BNode(int d) {
+            v = d;
+        }
+        int v = -1;
+        BNode left = null;
+        BNode right = null;
+    };
+
+    public static boolean isSubtree(BNode a, BNode b) {
+        if (a == null || b == null) return false;
+        if (a!=b)
+            return isSubtree(a.left, b)
+                || isSubtree(a.right,b);
+        else
+            return isSubtreeHelper(a, b);
+    }
+
+    public static boolean isSubtreeHelper(BNode a, BNode b) {
+        if (b == null && a == null)
+            return true;
+        if (b != null && a != b)
+            return false;
+        else {
+            System.out.println("is " + a.v  + " same as " + b.v);
+            return isSubtreeHelper(a.left, b.left)
+                    && isSubtreeHelper(a.right, b.right);
+        }
+    }
+
+    static void runIsSubtree() {
+        System.out.println("IsSubtree()");
+        int[] x = {7,2,8,1,3,4};
+        BNode b = new BNode(8);
+        BNode root = b;
+        b.left = new BNode(5);
+        b.right = new BNode(1);
+        b = b.right;
+        b.left = new BNode(2);
+        b.right = new BNode(3);
+        b = b.right;
+        b.left = new BNode(4);
+        b.right = new BNode(2);
+
+        System.out.println("Tree root: " + root.v);
+        System.out.println("Tree2 Root: " + b.v);
+
+        System.out.println("isSubtree - true: " + isSubtree(root, b));
+
+        System.out.println();
+    }
 
     public static void run() {
         System.out.println();
@@ -328,5 +379,6 @@ public class Chapter4 {
         runListAtDepth();
         runIsBalanced();
         runIsValid();
+        runIsSubtree();
     }
 }

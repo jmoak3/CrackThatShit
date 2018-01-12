@@ -5,5 +5,6 @@ public class Runner {
         Chapter3.run();
         BST.test();
         Chapter4.run();
+        Chapter5.run();
     }
 }

@@ -6,5 +6,6 @@ public class Runner {
         BST.test();
         Chapter4.run();
         Chapter5.run();
+        KSelect.test();
     }
 }
